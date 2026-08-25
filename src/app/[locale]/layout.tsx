@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 
 import "../globals.css";
 
@@ -161,6 +162,7 @@ export default async function LocaleLayout(props: {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <LegalProvider dictionary={t}>{props.children}</LegalProvider>
+        <Analytics />
       </body>
     </html>
   );
