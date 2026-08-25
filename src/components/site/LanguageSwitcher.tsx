@@ -42,7 +42,7 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label="Change language"
-        className="flex min-h-11 items-center gap-[7px] rounded-full border-[1.5px] border-line bg-surface px-3.5 text-[.9rem] font-extrabold tracking-[.04em] transition-colors hover:border-blue hover:text-blue-deep"
+        className="flex min-h-10 items-center gap-1.5 rounded-full border-[1.5px] border-line bg-surface px-2.5 text-[.8rem] font-extrabold tracking-[.04em] transition-colors hover:border-blue hover:text-blue-deep sm:min-h-11 sm:gap-[7px] sm:px-3.5 sm:text-[.9rem]"
       >
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
           <circle cx="12" cy="12" r="9" />

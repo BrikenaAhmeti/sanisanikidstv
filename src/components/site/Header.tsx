@@ -36,7 +36,7 @@ export function Header({ t, locale }: { t: Dictionary; locale: Locale }) {
             : { borderBottom: "1px solid transparent" }
         }
       >
-        <div className="mx-auto flex max-w-[1240px] items-center gap-5 px-5 py-3.5">
+        <div className="mx-auto flex max-w-[1240px] items-center gap-1 px-3 py-3 min-[380px]:gap-2 sm:gap-5 sm:px-5 sm:py-3.5">
           <a href="#top" aria-label={`${siteConfig.name} — home`} className="flex-none">
             <Image
               src="/assets/web-header.png"
@@ -44,7 +44,7 @@ export function Header({ t, locale }: { t: Dictionary; locale: Locale }) {
               width={1182}
               height={280}
               priority
-              className="h-12 w-auto dark:hidden"
+              className="h-8 w-auto min-[380px]:h-9 sm:h-12 dark:hidden"
             />
             <Image
               src="/assets/logo-lockup-dark.png"
@@ -52,7 +52,7 @@ export function Header({ t, locale }: { t: Dictionary; locale: Locale }) {
               width={1182}
               height={280}
               priority
-              className="hidden h-12 w-auto dark:block"
+              className="hidden h-8 w-auto min-[380px]:h-9 sm:h-12 dark:block"
             />
           </a>
 
@@ -68,7 +68,7 @@ export function Header({ t, locale }: { t: Dictionary; locale: Locale }) {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2 lg:ml-0">
+          <div className="ml-auto flex items-center gap-1 sm:gap-2 lg:ml-0">
             <LanguageSwitcher locale={locale} />
             <ThemeToggle />
             <button
@@ -76,7 +76,7 @@ export function Header({ t, locale }: { t: Dictionary; locale: Locale }) {
               onClick={() => setMenuOpen(true)}
               aria-label="Menu"
               aria-expanded={menuOpen}
-              className="grid h-11 w-11 place-items-center rounded-full border-[1.5px] border-line bg-surface lg:hidden"
+              className="grid h-10 w-10 place-items-center rounded-full border-[1.5px] border-line bg-surface sm:h-11 sm:w-11 lg:hidden"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
                 <path d="M4 7h16M4 12h16M4 17h16" />

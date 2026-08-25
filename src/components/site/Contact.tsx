@@ -7,6 +7,7 @@ import { siteConfig, socialLinks } from "@/lib/site";
 import { useLegal } from "@/components/providers/LegalProvider";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./Primitives";
+import { SubjectSelect } from "./SubjectSelect";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -37,7 +38,7 @@ export function Contact({ t }: { t: Dictionary }) {
   const [status, setStatus] = useState<{ ok: boolean; text: string }>({ ok: false, text: "" });
 
   const onField = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const el = event.target;
     const value = el instanceof HTMLInputElement && el.type === "checkbox" ? el.checked : el.value;
@@ -92,16 +93,15 @@ export function Contact({ t }: { t: Dictionary }) {
                 <span className="min-h-[18px] text-[.84rem] text-pink">{errors.email}</span>
               </label>
 
-              <label className="grid gap-[7px] text-[.92rem] font-bold">
-                {t.form_subject}
-                <select name="subject" value={form.subject} onChange={onField} className={fieldClass}>
-                  {subjects.map((subject) => (
-                    <option key={subject} value={subject}>
-                      {subject}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <div className="grid gap-[7px] text-[.92rem] font-bold">
+                <span>{t.form_subject}</span>
+                <SubjectSelect
+                  label={t.form_subject}
+                  options={subjects}
+                  value={form.subject}
+                  onChange={(subject) => setForm((prev) => ({ ...prev, subject }))}
+                />
+              </div>
 
               <label className="grid gap-[7px] text-[.92rem] font-bold">
                 {t.form_message}
