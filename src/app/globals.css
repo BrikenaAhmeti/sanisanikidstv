@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-blue: var(--blue);
+  --color-blue-deep: var(--blue-deep);
+  --color-blue-soft: var(--blue-soft);
+  --color-sun: var(--sun);
+  --color-sun-ink: var(--sun-ink);
+  --color-tang: var(--tang);
+  --color-tang-deep: var(--tang-deep);
+  --color-aqua: var(--aqua);
+  --color-pink: var(--pink);
+  --color-grape: var(--grape);
+  --color-night: #141c2b;
+  --color-night-line: #26334d;
+  --color-night-ink: #e9eef7;
+  --color-night-muted: #a9b6cc;
+
+  --font-display: var(--font-fredoka), Nunito, sans-serif;
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+
+  --shadow-brand: 0 10px 30px rgb(51 36 27 / 0.09);
+  --shadow-lift: 0 18px 44px rgb(51 36 27 / 0.16);
+}
+
+:root {
+  --bg: #fffbf4;
+  --surface: #ffffff;
+  --surface2: #fff6e6;
+  --ink: #33241b;
+  --muted: #6e5b4e;
+  --line: #efe4d4;
+  --blue: #2c7be5;
+  --blue-deep: #1b5fbf;
+  --blue-soft: #eaf2fe;
+  --sun: #f5c21f;
+  --sun-ink: #33241b;
+  --tang: #f5871f;
+  --tang-deep: #b85600;
+  --aqua: #0c8080;
+  --pink: #ce2e77;
+  --grape: #7a2fe0;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1725;
+  --surface: #18233a;
+  --surface2: #1e2b45;
+  --ink: #f1f5fb;
+  --muted: #a9b6cc;
+  --line: #27344e;
+  --blue: #5b9cf8;
+  --blue-deep: #3b82f6;
+  --blue-soft: #1b2740;
+  --sun: #ffd23f;
+  --sun-ink: #221708;
+  --tang: #ff9e2c;
+  --tang-deep: #ffb65c;
+  --aqua: #2cd4d4;
+  --pink: #ff6fb0;
+  --grape: #a375f2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+}
+
+:focus-visible {
+  outline: 3px solid var(--tang);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(28px, -22px) scale(1.08);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes chev {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-drift {
+  animation: drift 17s ease-in-out infinite;
+}
+.animate-drift-slow {
+  animation: drift 21s ease-in-out infinite reverse;
+}
+.animate-bob {
+  animation: bob 6s ease-in-out infinite;
+}
+.animate-chev {
+  animation: chev 2.2s ease-in-out infinite;
+}
+.animate-marquee {
+  animation: marquee 46s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
