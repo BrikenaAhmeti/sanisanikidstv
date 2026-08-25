@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/i18n/types";
+import { siteConfig } from "@/lib/site";
 import { Reveal } from "./Reveal";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -10,31 +11,19 @@ export function Newsletter({ t }: { t: Dictionary }) {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [message, setMessage] = useState("");
-  const [pending, setPending] = useState(false);
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!EMAIL.test(email) || !consent) {
       setMessage(t.news_err);
       return;
     }
-    setPending(true);
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      setMessage(res.ok ? t.news_ok : t.news_submit_err);
-      if (res.ok) {
-        setEmail("");
-        setConsent(false);
-      }
-    } catch {
-      setMessage(t.news_submit_err);
-    } finally {
-      setPending(false);
-    }
+    const subject = "SaniSaniKidsTV newsletter subscription";
+    const body = `Please subscribe this email address to SaniSaniKidsTV updates:\n\n${email.trim()}`;
+    const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setMessage(t.news_ok);
+    window.location.href = mailto;
   };
 
   return (
@@ -63,8 +52,7 @@ export function Newsletter({ t }: { t: Dictionary }) {
           </label>
           <button
             type="submit"
-            disabled={pending}
-            className="min-h-[54px] rounded-full bg-sun px-[30px] font-extrabold text-sun-ink transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+            className="min-h-[54px] rounded-full bg-sun px-[30px] font-extrabold text-sun-ink transition-transform hover:-translate-y-0.5"
           >
             {t.news_btn}
           </button>

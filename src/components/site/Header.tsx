@@ -47,10 +47,10 @@ export function Header({ t, locale }: { t: Dictionary; locale: Locale }) {
               className="h-12 w-auto dark:hidden"
             />
             <Image
-              src="/assets/web-header-dark.png"
+              src="/assets/logo-lockup-dark.png"
               alt={siteConfig.name}
-              width={1222}
-              height={312}
+              width={1182}
+              height={280}
               priority
               className="hidden h-12 w-auto dark:block"
             />

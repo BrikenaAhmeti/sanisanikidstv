@@ -35,7 +35,6 @@ export function Contact({ t }: { t: Dictionary }) {
   });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<{ ok: boolean; text: string }>({ ok: false, text: "" });
-  const [pending, setPending] = useState(false);
 
   const onField = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -45,7 +44,7 @@ export function Contact({ t }: { t: Dictionary }) {
     setForm((prev) => ({ ...prev, [el.name]: value }));
   };
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (form.company_website) return;
 
@@ -61,30 +60,13 @@ export function Contact({ t }: { t: Dictionary }) {
       return;
     }
 
-    setPending(true);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      setStatus({ ok: res.ok, text: res.ok ? t.form_ok : t.form_submit_err });
-      if (res.ok) {
-        setForm({
-          name: "",
-          email: "",
-          subject: subjects[0],
-          message: "",
-          consent: false,
-          company_website: "",
-        });
-        setErrors({});
-      }
-    } catch {
-      setStatus({ ok: false, text: t.form_submit_err });
-    } finally {
-      setPending(false);
-    }
+    const subject = `[SaniSaniKidsTV] ${form.subject}`;
+    const body = `${t.form_name}: ${form.name.trim()}\n${t.form_email}: ${form.email.trim()}\n\n${form.message.trim()}`;
+    const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setErrors({});
+    setStatus({ ok: true, text: t.form_ok });
+    window.location.href = mailto;
   };
 
   const fieldClass =
@@ -170,8 +152,7 @@ export function Contact({ t }: { t: Dictionary }) {
 
               <button
                 type="submit"
-                disabled={pending}
-                className="min-h-14 rounded-full border-0 bg-blue text-base font-extrabold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+                className="min-h-14 rounded-full border-0 bg-blue text-base font-extrabold text-white transition-transform hover:-translate-y-0.5"
               >
                 {t.form_send}
               </button>
